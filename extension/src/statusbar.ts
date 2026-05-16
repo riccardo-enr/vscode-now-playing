@@ -33,28 +33,28 @@ export class StatusBar implements vscode.Disposable {
     // Use micro-fractional offsets so no other extension's status bar
     // item can wedge itself between our controls and the title. Order
     // on a right-aligned bar (higher priority = further from the edge):
-    // [prev][toggle][next][title] reading left-to-right.
+    // [title][prev][toggle][next] reading left-to-right.
     const p = opts.priority;
-    this.main = vscode.window.createStatusBarItem("nowPlaying.main", align, p);
+    this.main = vscode.window.createStatusBarItem("nowPlaying.main", align, p + 3e-4);
     this.main.name = "Now Playing";
     this.main.command = "nowPlaying.playPause";
 
     if (opts.showControls) {
-      this.next = vscode.window.createStatusBarItem("nowPlaying.next", align, p + 1e-4);
-      this.next.name = "Now Playing: Next";
-      this.next.text = "$(chevron-right)";
-      this.next.tooltip = "Next track";
-      this.next.command = "nowPlaying.next";
-
-      this.toggle = vscode.window.createStatusBarItem("nowPlaying.toggle", align, p + 2e-4);
-      this.toggle.name = "Now Playing: Play/Pause";
-      this.toggle.command = "nowPlaying.playPause";
-
-      this.prev = vscode.window.createStatusBarItem("nowPlaying.prev", align, p + 3e-4);
+      this.prev = vscode.window.createStatusBarItem("nowPlaying.prev", align, p + 2e-4);
       this.prev.name = "Now Playing: Previous";
       this.prev.text = "$(chevron-left)";
       this.prev.tooltip = "Previous track";
       this.prev.command = "nowPlaying.prev";
+
+      this.toggle = vscode.window.createStatusBarItem("nowPlaying.toggle", align, p + 1e-4);
+      this.toggle.name = "Now Playing: Play/Pause";
+      this.toggle.command = "nowPlaying.playPause";
+
+      this.next = vscode.window.createStatusBarItem("nowPlaying.next", align, p);
+      this.next.name = "Now Playing: Next";
+      this.next.text = "$(chevron-right)";
+      this.next.tooltip = "Next track";
+      this.next.command = "nowPlaying.next";
     }
   }
 
