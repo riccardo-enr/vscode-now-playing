@@ -1,0 +1,51 @@
+---
+title: "Sidecar"
+---
+
+The `now-playing` Rust binary is a thin MPRIS-to-NDJSON bridge. It can be
+used standalone, independent of the VSCode extension.
+
+## CLI
+
+```bash
+now-playing --once                       # one JSON snapshot, then exit
+now-playing                              # event stream on stdout
+echo next | now-playing                  # control via stdin
+now-playing --player spotify             # restrict to a specific player
+```
+
+## Output format
+
+Each line on stdout is a JSON object describing the current state:
+
+```json
+{
+  "player": "spotify",
+  "status": "Playing",
+  "artist": "Artist Name",
+  "title": "Track Title",
+  "album": "Album Name",
+  "art_url": "file:///..."
+}
+```
+
+## Stdin commands
+
+Send one command per line on stdin. Both plain words and JSON forms are
+accepted:
+
+| Command     | Effect                          |
+|-------------|---------------------------------|
+| `play`      | Start playback                  |
+| `pause`     | Pause playback                  |
+| `toggle`    | Play/pause toggle               |
+| `next`      | Skip to next track              |
+| `prev`      | Skip to previous track          |
+| `raise`     | Focus the player window         |
+| `refresh`   | Re-emit current state           |
+
+## Use cases
+
+- Drive a `tmux-powerline` segment.
+- Pipe into a status bar (waybar, polybar, i3blocks).
+- Script playback controls from your shell.

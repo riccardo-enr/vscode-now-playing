@@ -1,0 +1,38 @@
+---
+title: "Now Playing"
+subtitle: "MPRIS media in your VSCode status bar"
+---
+
+A VSCode status-bar extension that shows the currently playing media from any
+MPRIS-compatible player (Spotify, mpv, VLC, browsers, ...) and lets you
+control it without leaving the editor.
+
+A small Rust sidecar talks to MPRIS over D-Bus and emits NDJSON; a thin
+TypeScript extension renders the result.
+
+## Features
+
+- Live track info in the status bar: `artist - title` (configurable format).
+- Optional prev / play-pause / next buttons next to the title.
+- Tooltip with album, player, status, and album cover.
+- Click the title to focus the player window (MPRIS `Raise`).
+- Auto-picks the first available player, or pin a preferred one.
+- Truncates long titles with an ellipsis.
+
+## Requirements
+
+- Linux with D-Bus and an MPRIS-capable media player.
+- VSCode `^1.85.0`.
+
+## Quick start
+
+```bash
+code --install-extension now-playing-linux-x64-<version>.vsix
+```
+
+See [Install](install.qmd) for details and [Configuration](configuration.qmd)
+for settings.
+
+## License
+
+[MIT](https://github.com/riccardo-enr/vscode-now-playing/blob/main/LICENSE)

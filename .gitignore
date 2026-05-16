@@ -9,6 +9,10 @@ extension/out/
 extension/bin/
 extension/*.vsix
 
+# Quarto
+docs/_site/
+docs/.quarto/
+
 # Editor
 .vscode/
 .idea/

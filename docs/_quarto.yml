@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Now Playing"
+  description: "VSCode status-bar extension for MPRIS media players."
+  repo-url: https://github.com/riccardo-enr/vscode-now-playing
+  repo-actions: [edit, issue]
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: install.qmd
+        text: Install
+      - href: configuration.qmd
+        text: Configuration
+      - href: commands.qmd
+        text: Commands
+      - href: sidecar.qmd
+        text: Sidecar
+      - href: development.qmd
+        text: Development
+    right:
+      - icon: github
+        href: https://github.com/riccardo-enr/vscode-now-playing
+  sidebar:
+    style: docked
+    contents:
+      - index.qmd
+      - install.qmd
+      - configuration.qmd
+      - commands.qmd
+      - sidecar.qmd
+      - development.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    toc: true
+    code-copy: true
+    code-overflow: wrap
