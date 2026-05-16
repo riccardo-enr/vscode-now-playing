@@ -15,6 +15,8 @@ export interface StatusBarOptions {
   template: string;
   maxLength: number;
   showControls: boolean;
+  hidePausedAfterSeconds: number;
+  hideIdleAfterSeconds: number;
 }
 
 export class StatusBar implements vscode.Disposable {
@@ -23,6 +25,7 @@ export class StatusBar implements vscode.Disposable {
   private readonly toggle?: vscode.StatusBarItem;
   private readonly next?: vscode.StatusBarItem;
   private lastTooltipKey: string = "";
+  private hideTimer: NodeJS.Timeout | undefined;
 
   constructor(private readonly opts: StatusBarOptions) {
     const align = opts.alignment === "left"
@@ -79,9 +82,22 @@ export class StatusBar implements vscode.Disposable {
     }
     this.prev?.show();
     this.next?.show();
+
+    switch (state.status) {
+      case "playing":
+        this.clearHideTimer();
+        break;
+      case "paused":
+        this.scheduleHide(this.opts.hidePausedAfterSeconds);
+        break;
+      case "stopped":
+        this.scheduleHide(this.opts.hideIdleAfterSeconds);
+        break;
+    }
   }
 
   hide() {
+    this.clearHideTimer();
     this.main.hide();
     this.prev?.hide();
     this.toggle?.hide();
@@ -89,10 +105,26 @@ export class StatusBar implements vscode.Disposable {
   }
 
   dispose() {
+    this.clearHideTimer();
     this.main.dispose();
     this.prev?.dispose();
     this.toggle?.dispose();
     this.next?.dispose();
+  }
+
+  private clearHideTimer() {
+    if (this.hideTimer) {
+      clearTimeout(this.hideTimer);
+      this.hideTimer = undefined;
+    }
+  }
+
+  private scheduleHide(seconds: number) {
+    this.clearHideTimer();
+    if (seconds <= 0) {
+      return;
+    }
+    this.hideTimer = setTimeout(() => this.hide(), seconds * 1000);
   }
 }
 
