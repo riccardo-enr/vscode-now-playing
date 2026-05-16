@@ -20,5 +20,6 @@ export type Command =
   | { cmd: "pause" }
   | { cmd: "next" }
   | { cmd: "prev" }
+  | { cmd: "raise" }
   | { cmd: "refresh" }
   | { cmd: "select_player"; name: string | null };

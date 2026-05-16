@@ -38,6 +38,9 @@ export function activate(ctx: vscode.ExtensionContext) {
     vscode.commands.registerCommand("nowPlaying.prev", () =>
       runtime?.sidecar.send({ cmd: "prev" }),
     ),
+    vscode.commands.registerCommand("nowPlaying.raise", () =>
+      runtime?.sidecar.send({ cmd: "raise" }),
+    ),
     vscode.commands.registerCommand("nowPlaying.refresh", () =>
       runtime?.sidecar.send({ cmd: "refresh" }),
     ),

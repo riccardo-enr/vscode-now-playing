@@ -58,6 +58,7 @@ pub enum Command {
     Pause,
     Next,
     Prev,
+    Raise,
     SelectPlayer { name: Option<String> },
     Refresh,
 }

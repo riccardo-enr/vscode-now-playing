@@ -29,6 +29,7 @@ use zbus::{
 const MPRIS_PREFIX: &str = "org.mpris.MediaPlayer2.";
 const MPRIS_PATH: &str = "/org/mpris/MediaPlayer2";
 const MPRIS_PLAYER_IFACE: &str = "org.mpris.MediaPlayer2.Player";
+const MPRIS_ROOT_IFACE: &str = "org.mpris.MediaPlayer2";
 
 pub struct MprisSource {
     conn: Connection,
@@ -151,13 +152,18 @@ impl Source for MprisSource {
         let Some(bus) = self.pick_active().await? else {
             return Ok(());
         };
+        if let Command::Raise = cmd {
+            let proxy = Proxy::new(&self.conn, bus.as_str(), MPRIS_PATH, MPRIS_ROOT_IFACE).await?;
+            proxy.call_method("Raise", &()).await?;
+            return Ok(());
+        }
         let method = match cmd {
             Command::PlayPause => "PlayPause",
             Command::Play => "Play",
             Command::Pause => "Pause",
             Command::Next => "Next",
             Command::Prev => "Previous",
-            Command::SelectPlayer { .. } | Command::Refresh => unreachable!(),
+            Command::Raise | Command::SelectPlayer { .. } | Command::Refresh => unreachable!(),
         };
         let proxy = Proxy::new(&self.conn, bus.as_str(), MPRIS_PATH, MPRIS_PLAYER_IFACE).await?;
         proxy.call_method(method, &()).await?;
