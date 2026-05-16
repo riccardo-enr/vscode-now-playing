@@ -26,6 +26,8 @@ export class StatusBar implements vscode.Disposable {
   private readonly next?: vscode.StatusBarItem;
   private lastTooltipKey: string = "";
   private hideTimer: NodeJS.Timeout | undefined;
+  private lastStatus: Status | undefined;
+  private autoHidden = false;
 
   constructor(private readonly opts: StatusBarOptions) {
     const align = opts.alignment === "left"
@@ -64,6 +66,17 @@ export class StatusBar implements vscode.Disposable {
   render(state: NowPlaying) {
     if (state.status === "none" || (!state.title && !state.artist)) {
       this.hide();
+      this.lastStatus = state.status;
+      this.autoHidden = false;
+      return;
+    }
+
+    const statusChanged = state.status !== this.lastStatus;
+
+    // Once the auto-hide timer has fired, stay hidden until playback status
+    // actually changes. Otherwise periodic metadata frames from the player
+    // would re-show the bar on every D-Bus PropertiesChanged.
+    if (this.autoHidden && !statusChanged) {
       return;
     }
 
@@ -83,16 +96,20 @@ export class StatusBar implements vscode.Disposable {
     this.prev?.show();
     this.next?.show();
 
-    switch (state.status) {
-      case "playing":
-        this.clearHideTimer();
-        break;
-      case "paused":
-        this.scheduleHide(this.opts.hidePausedAfterSeconds);
-        break;
-      case "stopped":
-        this.scheduleHide(this.opts.hideIdleAfterSeconds);
-        break;
+    if (statusChanged) {
+      this.autoHidden = false;
+      switch (state.status) {
+        case "playing":
+          this.clearHideTimer();
+          break;
+        case "paused":
+          this.scheduleHide(this.opts.hidePausedAfterSeconds);
+          break;
+        case "stopped":
+          this.scheduleHide(this.opts.hideIdleAfterSeconds);
+          break;
+      }
+      this.lastStatus = state.status;
     }
   }
 
@@ -124,7 +141,10 @@ export class StatusBar implements vscode.Disposable {
     if (seconds <= 0) {
       return;
     }
-    this.hideTimer = setTimeout(() => this.hide(), seconds * 1000);
+    this.hideTimer = setTimeout(() => {
+      this.autoHidden = true;
+      this.hide();
+    }, seconds * 1000);
   }
 }
 
