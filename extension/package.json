@@ -8,6 +8,7 @@
     "url": "https://github.com/riccardo-enr/vscode-now-playing.git"
   },
   "publisher": "riccardo",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
