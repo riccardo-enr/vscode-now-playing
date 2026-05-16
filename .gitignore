@@ -17,3 +17,7 @@ docs/.quarto/
 .vscode/
 .idea/
 *.swp
+
+# AI
+.claude
+CLAUDE.md
