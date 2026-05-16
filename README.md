@@ -7,6 +7,9 @@ NDJSON; a thin TypeScript extension (`extension/`) renders the result.
 Full documentation: <https://riccardo-enr.github.io/vscode-now-playing/>
 (source under [`docs/`](docs/)).
 
+> **Note**: only tested on Linux (x86_64). MPRIS is a Linux/D-Bus protocol,
+> so macOS and Windows are not supported.
+
 ## Layout
 
 ```

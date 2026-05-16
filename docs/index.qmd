@@ -24,6 +24,11 @@ TypeScript extension renders the result.
 - Linux with D-Bus and an MPRIS-capable media player.
 - VSCode `^1.85.0`.
 
+::: {.callout-note}
+Only tested on Linux (x86_64). MPRIS is a Linux/D-Bus protocol, so macOS
+and Windows are not supported.
+:::
+
 ## Quick start
 
 ```bash
