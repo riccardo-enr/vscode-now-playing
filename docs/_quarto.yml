@@ -6,7 +6,7 @@ website:
   title: "PlayBar"
   description: "VSCode status-bar extension for MPRIS media players."
   favicon: assets/icon.png
-  repo-url: https://github.com/riccardo-enr/vscode-now-playing
+  repo-url: https://github.com/riccardo-enr/playbar
   repo-actions: [edit, issue]
   navbar:
     left:
@@ -24,7 +24,7 @@ website:
         text: Development
     right:
       - icon: github
-        href: https://github.com/riccardo-enr/vscode-now-playing
+        href: https://github.com/riccardo-enr/playbar
   sidebar:
     style: docked
     contents:

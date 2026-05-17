@@ -42,4 +42,4 @@ for settings.
 
 ## License
 
-[MIT](https://github.com/riccardo-enr/vscode-now-playing/blob/main/LICENSE)
+[MIT](https://github.com/riccardo-enr/playbar/blob/main/LICENSE)

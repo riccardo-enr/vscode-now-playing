@@ -8,7 +8,7 @@ VSCode status-bar extension that mirrors `tmux-powerline`'s music segment.
 A small Rust sidecar (`now-playing/`) talks to MPRIS over D-Bus and emits
 NDJSON; a thin TypeScript extension (`extension/`) renders the result.
 
-Full documentation: <https://riccardo-enr.github.io/vscode-now-playing/>
+Full documentation: <https://riccardo-enr.github.io/playbar/>
 (source under [`docs/`](docs/)).
 
 > **Note**: only tested on Linux (x86_64). MPRIS is a Linux/D-Bus protocol,
@@ -17,7 +17,7 @@ Full documentation: <https://riccardo-enr.github.io/vscode-now-playing/>
 ## Install
 
 Grab the latest `now-playing-linux-x64-*.vsix` from the
-[Releases page](https://github.com/riccardo-enr/vscode-now-playing/releases)
+[Releases page](https://github.com/riccardo-enr/playbar/releases)
 and install it:
 
 ```bash

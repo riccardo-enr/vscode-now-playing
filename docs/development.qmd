@@ -40,7 +40,7 @@ cd extension
 npx vsce package
 ```
 
-The CI workflow under [`.github/workflows/`](https://github.com/riccardo-enr/vscode-now-playing/tree/main/.github/workflows)
+The CI workflow under [`.github/workflows/`](https://github.com/riccardo-enr/playbar/tree/main/.github/workflows)
 builds and attaches a `linux-x64` VSIX to tagged releases.
 
 ## Building this site

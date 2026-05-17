@@ -5,7 +5,7 @@ title: "Install"
 ## From a release VSIX
 
 Grab the latest `.vsix` from the
-[Releases page](https://github.com/riccardo-enr/vscode-now-playing/releases):
+[Releases page](https://github.com/riccardo-enr/playbar/releases):
 
 ```bash
 code --install-extension now-playing-linux-x64-<version>.vsix

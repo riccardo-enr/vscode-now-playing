@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/riccardo-enr/vscode-now-playing.git"
+    "url": "https://github.com/riccardo-enr/playbar.git"
   },
   "publisher": "riccardo",
   "license": "MIT",

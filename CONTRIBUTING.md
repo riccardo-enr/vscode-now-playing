@@ -13,8 +13,8 @@ separate platform backend behind the same NDJSON interface.
 ## Getting set up
 
 ```bash
-git clone https://github.com/riccardo-enr/vscode-now-playing
-cd vscode-now-playing
+git clone https://github.com/riccardo-enr/playbar
+cd playbar
 
 # Sidecar
 cd now-playing
