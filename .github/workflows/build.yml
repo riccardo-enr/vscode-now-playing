@@ -67,7 +67,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: now-playing-linux-x64-vsix
+          name: playbar-linux-x64-vsix
           path: extension/*.vsix
 
       - name: Publish release with vsix
