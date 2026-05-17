@@ -112,6 +112,20 @@ playing. Both default to `0` (disabled).
   for that many seconds. The bar reappears as soon as playback resumes.
 - `nowPlaying.hideIdleAfterSeconds` — same idea when the player is stopped.
 
+### Marquee
+
+When the rendered text is wider than `nowPlaying.maxLength`, the default is
+to truncate with an ellipsis. Set `nowPlaying.marquee.enabled` to `true` to
+scroll the text instead. Tune `marquee.speedMs`, `marquee.pauseEndsMs`, and
+`marquee.gap` to taste — see the [configuration page](docs/configuration.qmd)
+for defaults.
+
+### Hover tooltip
+
+Hovering the status bar item reveals cover art (when the player exposes it),
+the track title, and the album with its release year in parentheses when
+available.
+
 ## Standalone use
 
 The sidecar is useful by itself:
