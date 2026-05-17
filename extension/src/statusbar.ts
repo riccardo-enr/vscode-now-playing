@@ -23,7 +23,6 @@ export interface StatusBarOptions {
 export class StatusBar implements vscode.Disposable {
   private readonly main: vscode.StatusBarItem;
   private readonly prev?: vscode.StatusBarItem;
-  private readonly toggle?: vscode.StatusBarItem;
   private readonly next?: vscode.StatusBarItem;
   private lastTooltipKey: string = "";
   private hideTimer: NodeJS.Timeout | undefined;
@@ -51,10 +50,6 @@ export class StatusBar implements vscode.Disposable {
       this.prev.text = "$(chevron-left)";
       this.prev.tooltip = "Previous track";
       this.prev.command = "nowPlaying.prev";
-
-      this.toggle = vscode.window.createStatusBarItem("nowPlaying.toggle", align, p + 1e-4);
-      this.toggle.name = "Now Playing: Play/Pause";
-      this.toggle.command = "nowPlaying.playPause";
 
       this.next = vscode.window.createStatusBarItem("nowPlaying.next", align, p);
       this.next.name = "Now Playing: Next";
@@ -91,11 +86,6 @@ export class StatusBar implements vscode.Disposable {
     }
     this.main.show();
 
-    if (this.toggle) {
-      this.toggle.text = state.status === "playing" ? "$(debug-pause)" : "$(play)";
-      this.toggle.tooltip = state.status === "playing" ? "Pause" : "Play";
-      this.toggle.show();
-    }
     this.prev?.show();
     this.next?.show();
 
@@ -120,7 +110,6 @@ export class StatusBar implements vscode.Disposable {
     this.clearHideTimer();
     this.main.hide();
     this.prev?.hide();
-    this.toggle?.hide();
     this.next?.hide();
   }
 
@@ -128,7 +117,6 @@ export class StatusBar implements vscode.Disposable {
     this.clearHideTimer();
     this.main.dispose();
     this.prev?.dispose();
-    this.toggle?.dispose();
     this.next?.dispose();
   }
 
@@ -155,8 +143,8 @@ function buildTooltip(state: NowPlaying): vscode.MarkdownString {
   const md = new vscode.MarkdownString();
   md.isTrusted = false;
   md.supportHtml = true;
-  if (state.art_url) {
-    md.appendMarkdown(`<img src="${state.art_url}" width="180" height="180" />\n\n`);
+  if (state.art_url && /^(file:|data:)/i.test(state.art_url.trim())) {
+    md.appendMarkdown(`<img src="${state.art_url.trim()}" width="180" height="180" />\n\n`);
   }
   if (state.title) {
     md.appendMarkdown(`**${escape(state.title)}**\n\n`);
